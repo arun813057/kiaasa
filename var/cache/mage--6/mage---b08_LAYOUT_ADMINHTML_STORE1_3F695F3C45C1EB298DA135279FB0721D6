@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1561201122;s:6:"expire";i:9999999999;s:4:"tags";s:69:"b08_DEFAULT,b08_CMS_BLOCK_INDEX,b08_LAYOUT_GENERAL_CACHE_TAG,b08_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1561207452;s:6:"expire";i:9999999999;s:4:"tags";s:69:"b08_DEFAULT,b08_CMS_BLOCK_INDEX,b08_LAYOUT_GENERAL_CACHE_TAG,b08_MAGE";}
 <body>
    <referenceContainer name="after.body.start">
       <block class="Magento\Ui\Block\Wysiwyg\ActiveEditor" name="theme.active.editor" template="Magento_Ui::wysiwyg/active_editor.phtml"/>
