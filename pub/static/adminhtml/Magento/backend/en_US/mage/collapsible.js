@@ -1,0 +1,1 @@
+/var/www/kiaasa/lib/web/mage/collapsible.js

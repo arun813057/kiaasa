@@ -1,0 +1,113 @@
+<?php
+/**
+ * Copyright © 2016 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+?>
+<?php
+/**
+ * Blog recent posts widget
+ *
+ * @var $block \Magefan\Blog\Block\Widget\Recent
+ */
+?>
+
+<?php
+    $_postCollection = $block->getPostCollection();
+	$collectionCouunt = $_postCollection->count();
+	$widget_id = rand(5, 1500);
+	$isSlider = $collectionCouunt > 4 ? true : false;
+	$imageHelper = $this->helper('Magefan\Blog\Helper\Image');
+	$imageWidth = 399;
+	$imageHeight = 266;
+?>
+<?php if ($collectionCouunt){ ?>
+<div class="post-list-wrapper blog-widget-recent" id="blog-widget-<?= $widget_id ?>">
+    <header class="widget-title clearfix"><h2><?php echo $block->escapeHtml($block->getTitle()) ?></h2></header>
+	<ul class="post-list<?php if($isSlider){ ?> owl-carousel owl-theme<?php } ?> clearfix">
+        <?php foreach ($_postCollection as $_post) { ?>
+            <?php
+                $_postUrl = $_post->getPostUrl();
+                $_postName = $block->escapeHtml($_post->getTitle(), null, true);
+            ?>
+            <li class="post-holder post-holder-<?php echo $_post->getId(); ?>">
+                <div class="inner"> 
+                    <div class="post-title">
+                        <a class="post-item-link"
+                           href="<?php echo $_postUrl ?>">
+                            <?php echo $_postName; ?>
+                        </a>
+                    </div>
+                    <?php if ($featuredImage = $_post->getFeaturedImage()) { ?>
+                        <div class="post-ftimg-hld">
+                            <a href="<?php echo $_postUrl ?>" title="<?php echo $_postName ?>">
+                                <img src="<?php echo $imageHelper->init($_post->getFeaturedImg())->resize($imageWidth, $imageHeight) ?>" alt="<?php echo $_postName ?>" />
+                            </a>
+                        </div>
+                    <?php } ?>
+                    <div class="post-description clearfix">
+                        <div class="post-text-hld clearfix">
+                            <?php echo $block->getShorContent($_post) ?>
+                        </div>
+						<div class="middle-box">
+							<div class="publish-date"><i class="fa fa-calendar"></i><?php echo $_post->getPublishDate('F d, Y'); ?></div>
+							<div class="comments"><i class="fa fa-comment-o"></i><?php echo $_post->getCommentsCount(); ?> <?php echo __('Comments') ?></div>
+						</div>
+                        <a class="post-read-more btn btn-default" href="<?php echo $_postUrl ?>" title="<?php echo $_postName ?>">
+                           <span><?php echo __('Read more') ?></span>
+                        </a>
+						<div class="post-info">
+							<?php if ($_author = $_post->getAuthor()) { ?>
+								<div class="post-author">
+									<i class="fa fa-user"></i>
+									<span><?php echo $block->escapeHtml($_author->getTitle()) ?></span>
+								</div>
+							<?php } ?>
+						</div>
+                    </div>
+                </div>
+            </li>
+        <?php } ?>
+    </ul>
+	<?php if($isSlider){ ?>
+	<script type="text/javascript">
+		require(["jquery", "MeigeeCarousel"], function(jQuery, owlCarousel)
+		{
+			blogWidgetSlider<?php echo $widget_id; ?> = jQuery('#blog-widget-<?= $widget_id ?> .post-list');
+			blogWidgetSlider<?php echo $widget_id; ?>.owlCarousel({
+				margin: 0,
+				nav:true,
+				responsive:{
+					0:{
+						items:1
+					},
+					450:{
+						items:2
+					},
+					767:{
+						items:3
+					},
+					1007:{
+						items:4
+					},
+					1331:{
+						items:4
+					}
+				},
+				smartSpeed: 500,
+				dots: false,
+				loop: true,
+				navigation: true,
+				navText: ['<i class="fa fa-chevron-left"></i>','<i class="fa fa-chevron-right"></i>'],
+				autoplay: true,
+				autoplayTimeout: 5000,
+				autoplayHoverPause: true,
+				autoplaySpeed: 1000
+			});
+		  });
+	</script>
+	<?php } ?>
+</div>
+<?php } ?>
