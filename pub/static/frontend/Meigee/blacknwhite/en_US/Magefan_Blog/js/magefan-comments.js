@@ -1,0 +1,1 @@
+/var/www/kiaasa/app/code/Magefan/Blog/view/frontend/web/js/magefan-comments.js
